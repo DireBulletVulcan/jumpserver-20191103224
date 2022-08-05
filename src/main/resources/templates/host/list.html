@@ -15,7 +15,7 @@
         </span>
 
                 <div class="layui-btn-container" style="margin-top: 15px">
-                    <button type="button" class="layui-btn">新建主机</button>
+                    <a href="/host/save" class="layui-btn">新建主机</a>
                 </div>
 
                 <table class="layui-table">
@@ -34,7 +34,21 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                    <tr th:each="host : ${allHosts}">
+                        <td th:text="${host.id}"></td>
+                        <td th:text="${host.hostName}"></td>
+                        <td th:text="${host.ip}"></td>
+                        <td>
+                            <div class="layui-btn-group">
+                                <a th:href="@{'/host/del?id=' + ${host.id}}" class="layui-btn layui-btn-primary layui-btn-sm">
+                                    <i class="layui-icon">&#xe640;</i>
+                                </a>
+                                <a th:href="@{'/host/update?id=' + ${host.id}}" class="layui-btn layui-btn-primary layui-btn-sm">
+                                    <i class="layui-icon">&#xe642;</i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
