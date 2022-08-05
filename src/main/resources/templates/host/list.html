@@ -9,7 +9,34 @@
     <body>
         <div>
             <div layout:fragment="content">
-                <h1>主机列表</h1>
+        <span class="layui-breadcrumb">
+          <a href="/">首页</a>
+            <a href="/host/list"><cite>主机列表</cite></a>
+        </span>
+
+                <div class="layui-btn-container" style="margin-top: 15px">
+                    <button type="button" class="layui-btn">新建主机</button>
+                </div>
+
+                <table class="layui-table">
+                    <colgroup>
+                        <col width="100">
+                        <col width="200">
+                        <col width="100">
+                        <col>
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>主机名</th>
+                        <th>主机IP</th>
+                        <th>用户名</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </body>
