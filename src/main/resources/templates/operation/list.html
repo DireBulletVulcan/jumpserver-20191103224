@@ -1,0 +1,51 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/main}">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>操作日志列表</title>
+    </head>
+
+    <body>
+
+        <div layout:fragment="content">
+    <span class="layui-breadcrumb">
+      <a href="/">首页</a>
+        <a href="/operation/list"><cite>操作日志列表</cite></a>
+    </span>
+
+            <table class="layui-table">
+                <colgroup>
+                    <col width="100">
+                    <col width="200">
+                    <col width="200">
+                    <col>
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>类型</th>
+                    <th>发生时间</th>
+                    <th>注释信息</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="operation : ${allOperations}">
+                    <td th:text="${operation.id}"></td>
+                    <td th:text="${operation.kind}"></td>
+                    <td th:text="${operation.time}"></td>
+                    <td th:text="${operation.comment}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <script>
+                function warnDelete() {
+                    layer.alert('有了回调', function(index){
+                        layer.close(index);
+                    });
+                }
+            </script>
+        </div>
+
+    </body>
+</html>

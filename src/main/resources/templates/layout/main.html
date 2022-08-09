@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
         <title>JumpServer</title>
-        <link rel="stylesheet" href="/layui/css/layui.css">
+        <link rel="stylesheet" href="/static/layui/css/layui.css">
     </head>
     <body>
         <div class="layui-layout layui-layout-admin">
@@ -34,12 +34,12 @@
                     <li class="layui-nav-item layui-hide layui-show-md-inline-block">
                         <a href="javascript:;">
                             <img src="//tva1.sinaimg.cn/crop.0.0.118.118.180/5db11ff4gw1e77d3nqrv8j203b03cweg.jpg" class="layui-nav-img">
-                            tester
+                            <span th:text="${loginUser.name}"></span>
                         </a>
                         <dl class="layui-nav-child">
                             <dd><a href="">Your Profile</a></dd>
-                            <dd><a href="">Settings</a></dd>
-                            <dd><a href="">Sign out</a></dd>
+                            <dd><a href="/auth/changePassword">修改本人密码</a></dd>
+                            <dd><a href="/auth/logout">登出</a></dd>
                         </dl>
                     </li>
                     <li class="layui-nav-item" lay-header-event="menuRight" lay-unselect>
@@ -68,6 +68,13 @@
                                 <dd><a href="/user/save">添加用户</a></dd>
                             </dl>
                         </li>
+
+                        <li class="layui-nav-item layui-nav-itemed">
+                            <a class="" href="javascript:;">系统管理</a>
+                            <dl class="layui-nav-child">
+                                <dd><a href="/operation/list">操作日志</a></dd>
+                            </dl>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -86,7 +93,7 @@
                 底部固定区域
             </div>
         </div>
-        <script src="/layui/layui.js"></script>
+        <script src="/static/layui/layui.js"></script>
         <script>
             //JS
             layui.use(['element', 'layer', 'util'], function(){

@@ -46,7 +46,9 @@
                             >
                                 <i class="layui-icon">&#xe640;</i>
                             </a>
-
+                            <a th:href="@{'/user/resetPassword?id=' + ${user.id}}" class="layui-btn layui-btn-primary layui-btn-sm">
+                                重置密码
+                            </a>
                         </div>
                     </td>
                 </tr>

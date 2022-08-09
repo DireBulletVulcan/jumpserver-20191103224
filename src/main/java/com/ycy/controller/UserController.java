@@ -1,5 +1,6 @@
 package com.ycy.controller;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 import com.ycy.model.User;
 import com.ycy.repository.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import javax.annotation.Resource;
 @Controller
 @RequestMapping("user")
 public class UserController {
+    
+    public static final String DEFAULT_PASSWORD = "123456";
     
     @Resource
     UserRepository userRepository;
@@ -39,6 +42,8 @@ public class UserController {
             savedUser.setName(user.getName());
             this.userRepository.save(savedUser);
         } else {
+            // 为新用户设置默认密码
+            user.setPassword(this.getDefaultHashedPassword());
             this.userRepository.save(user);
         }
         return "redirect:/user/list";
@@ -48,6 +53,18 @@ public class UserController {
     public String del(Long id) {
         this.userRepository.deleteById(id);
         return "redirect:/user/list";
+    }
+    
+    @GetMapping("resetPassword")
+    public String resetPassword(Long id) {
+        User savedUser = this.userRepository.findById(id).get();
+        savedUser.setPassword(this.getDefaultHashedPassword());
+        this.userRepository.save(savedUser);
+        return "redirect:/user/list";
+    }
+    
+    private String getDefaultHashedPassword() {
+        return BCrypt.withDefaults().hashToString(12, DEFAULT_PASSWORD.toCharArray());
     }
     
 }
