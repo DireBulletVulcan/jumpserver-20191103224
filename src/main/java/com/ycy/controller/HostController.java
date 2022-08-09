@@ -29,40 +29,33 @@ public class HostController {
     }
     
     @GetMapping("save")
-    public String saveForm() {
+    public String saveForm(ModelMap map, @RequestParam(value = "id", required=false) Long id) {
+        Host host = id != null ? this.hostRepository.findById(id).get() : new Host();
+        
+        map.put("host", host);
         return "host/save";
     }
     
     // Springboot会将表单中的参数自动组装成Host对象
     @PostMapping("save")
     public String save(Host host) {
-        this.hostRepository.save(host);
+        if (host.getId() != null) {
+            // 更新的逻辑：先从数据库中查找到已保持的对象，再更加表单提交的值，去更新此对象，最后保存
+            Host savedHost = this.hostRepository.findById(host.getId()).get();
+            
+            savedHost.setHostName(host.getHostName());
+            savedHost.setIp(host.getIp());
+            savedHost.setUserName(host.getUserName());
+            this.hostRepository.save(savedHost);
+        } else {
+            this.hostRepository.save(host);
+        }
         return "redirect:/host/list";
     }
     
     @GetMapping("del")
     public String del(Long id) {
         this.hostRepository.deleteById(id);
-        return "redirect:/host/list";
-    }
-    
-    @GetMapping("update")
-    public String updateForm(ModelMap map, @RequestParam("id") Long id) {
-        Host host = this.hostRepository.findById(id).get();
-        map.put("host", host);
-        return "host/update";
-    }
-    
-    @PostMapping("update")
-    public String update(Host host) {
-        // 更新的逻辑：先从数据库中查找到已保持的对象，再更加表单提交的值，去更新此对象，最后保存
-        Host savedHost = this.hostRepository.findById(host.getId()).get();
-        
-        savedHost.setHostName(host.getHostName());
-        savedHost.setIp(host.getIp());
-        savedHost.setUserName(host.getUserName());
-        
-        this.hostRepository.save(savedHost);
         return "redirect:/host/list";
     }
     
